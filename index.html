@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Keuangan IDR MYR">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Keuangan Pribadi IDR / MYR</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#eef7ff 0%,#f8f5ff 55%,#f4fbf7 100%);color:#17223b;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.container{max-width:760px;margin:auto;padding:18px 15px 32px}.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:4px 0 16px}.brand{display:flex;gap:10px;align-items:flex-start}.brand-icon{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#d9f1ff,#e9e2ff);display:grid;place-items:center;font-size:28px;box-shadow:0 5px 18px #5178b21c}.brand h1{font-size:24px;line-height:1.05;margin:0;font-weight:800;letter-spacing:-.5px}.brand p{margin:5px 0 0;color:#6e7c95;font-size:11px}.top-actions{display:flex;gap:7px;align-items:center}.top-actions button,.top-actions select{width:auto;padding:8px 10px;border:1px solid #d8e2f1;border-radius:12px;background:#fff;box-shadow:0 3px 12px #42618b10}
+.card{background:rgba(255,255,255,.92);border:1px solid #ffffff;border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 9px 28px #4b6a9b14}.summary{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:10px}.box{border-radius:18px;padding:14px 15px;min-height:90px;background:#f7faff;border:1px solid #edf2f9}.box.total{background:linear-gradient(135deg,#398df4,#5aa8ff);color:#fff;border:0}.box.total small,.box.total .hint{color:#eaf4ff}.box.income-box{background:#effaf4}.box.expense-box{background:#fff2f2}.box small{display:block;color:#6c7890;font-size:11px;margin-bottom:6px}.box strong{display:block;font-size:20px;line-height:1.15}.box.total strong{font-size:23px}.box .hint{font-size:10px;color:#7b879b;margin-top:6px}.income{color:#18864f}.expense{color:#db4040}.blue{color:#2468dc}
+.currency-pill{display:inline-flex;align-items:center;gap:5px;background:#ffffff38;border:1px solid #ffffff55;padding:3px 7px;border-radius:999px;font-size:10px;float:right}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-head h2{font-size:16px;margin:0}.mini-link{border:0;background:transparent;color:#2774df;font-weight:700;font-size:12px;cursor:pointer;width:auto;padding:4px}.accounts{display:grid;gap:8px}.account{display:flex;justify-content:space-between;align-items:center;padding:11px 10px;border:1px solid #e8edf5;border-radius:15px;background:#fff}.account-left{display:flex;align-items:center;gap:9px}.account-icon{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;background:#eaf4ff;font-size:16px}.account-name{font-weight:700;font-size:13px}.account-type{font-size:10px;color:#7b8494;margin-top:2px}.currency-badge{font-size:9px;color:#3676d9;margin-top:2px}.account-balance{font-weight:750;font-size:12px}.account-actions button{width:auto;border:0;background:transparent;color:#a0a8b6;font-size:10px;padding:2px 0;cursor:pointer}.primary{border:0;background:linear-gradient(135deg,#2d78ef,#3d91f6);color:#fff;font-weight:750;cursor:pointer}.add-account{margin-top:11px;border-radius:14px;padding:12px}.ghost{cursor:pointer;background:#fff}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.type{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:5px}.type button{cursor:pointer;background:#f7faff}.type .active{background:#eaf3ff;border-color:#77aaf4;color:#2470e2;font-weight:700}.tx-card{background:linear-gradient(180deg,#fff,#f9fbff)}label{display:block;font-size:11px;color:#667389;margin:9px 0 5px}input,select,button{font:inherit;width:100%;padding:10px;border:1px solid #d8e1ee;border-radius:11px;background:#fff}input:focus,select:focus{outline:2px solid #d8eaff;border-color:#75aaf2}.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.save-btn{margin-top:12px;padding:11px}.item{display:flex;justify-content:space-between;gap:8px;padding:11px 0;border-bottom:1px solid #edf1f6}.item:last-child{border-bottom:0}.item-left{display:flex;gap:9px}.tx-icon{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:14px;flex:none}.tx-icon.in{background:#e7f8ed;color:#16834b}.tx-icon.out{background:#fff0eb;color:#e05635}.tx-icon.tr{background:#eee9ff;color:#7154d9}.title{font-size:12px;font-weight:700}.meta{font-size:10px;color:#7a8494;margin-top:3px}.amount{font-size:12px;font-weight:750;white-space:nowrap}.delete{width:auto;padding:2px 5px;border:0;background:transparent;color:#a2a9b4;font-size:10px;cursor:pointer}.filter select{margin-bottom:3px}.empty{text-align:center;color:#8993a1;padding:18px;font-size:12px}.note{font-size:11px;color:#778191;line-height:1.5}.install{background:linear-gradient(135deg,#edf7ff,#f4efff)}.modal{backdrop-filter:blur(5px)}.modal-box{background:#fff;border-radius:24px;padding:23px;max-width:380px;width:100%;box-shadow:0 18px 55px rgba(27,49,89,.24)}.currency-choice{display:grid;gap:9px;margin:14px 0}.currency-choice button{display:flex;align-items:center;gap:10px;text-align:left;padding:12px;border:1px solid #dfe7f2;background:#fff}.currency-choice button.active{border:2px solid #4b91ef;background:#f0f7ff}.currency-choice .flag{font-size:23px}.choice-title{font-weight:750}.choice-sub{font-size:10px;color:#7d899a;margin-top:2px}.footer-note{text-align:center;color:#7a8799;font-size:10px;padding:3px 8px 14px}.main-badge{font-size:10px;color:#fff;background:#ffffff33;padding:3px 7px;border-radius:99px}
+@media(max-width:620px){.summary{grid-template-columns:1fr}.box.total{min-height:98px}.topbar{align-items:center}.brand h1{font-size:22px}.brand-icon{width:43px;height:43px;font-size:24px}.top-actions{flex-direction:column;align-items:stretch}.top-actions select{max-width:145px}.form-grid,.row{grid-template-columns:1fr}.card{border-radius:20px;padding:14px}}
+</style>
+</head>
+<body>
+<div id="mainCurrencySetup" class="modal" style="display:none;position:fixed;inset:0;background:rgba(20,35,60,.42);z-index:9999;align-items:center;justify-content:center;padding:18px">
+  <div class="modal-box">
+    <div style="font-size:13px;color:#5e7696;font-weight:700">💰 Keuangan Pribadi</div>
+    <h2 style="margin:5px 0 4px;font-size:22px">Pilih Mata Uang Utama</h2>
+    <p style="color:#728097;font-size:12px;margin:0">Hanya 1 mata uang yang ditampilkan di Total Saldo, Pemasukan, dan Pengeluaran.</p>
+    <div class="currency-choice">
+      <button type="button" id="choiceIDR" onclick="pickMainCurrency('IDR')"><span class="flag">🇮🇩</span><span><span class="choice-title">IDR — Rupiah</span><span class="choice-sub">Gunakan Rupiah sebagai mata uang utama</span></span></button>
+      <button type="button" id="choiceMYR" onclick="pickMainCurrency('MYR')"><span class="flag">🇲🇾</span><span><span class="choice-title">MYR — Ringgit Malaysia</span><span class="choice-sub">Gunakan Ringgit sebagai mata uang utama</span></span></button>
+    </div>
+    <button class="primary save-btn" onclick="saveMainCurrency()">Mulai</button>
+  </div>
+</div>
+<div class="container">
+<div class="topbar">
+  <div class="brand"><div class="brand-icon">💰</div><div><h1><span data-i18n="appTitle">Keuangan Pribadi<br>IDR / MYR</span></h1><p>Satu aplikasi, dua mata uang. Kelola keuanganmu dengan mudah.</p></div></div>
+  <div class="top-actions"><button type="button" onclick="chooseMainCurrency()">💱</button><select id="language" onchange="setLanguage(this.value)"><option value="id">🇮🇩 Indonesia</option><option value="zh">🇹🇼 繁體中文</option></select></div>
+</div>
+
+<div class="card summary">
+<div class="box total"><span class="currency-pill" id="summaryCurrency">IDR</span><small data-i18n="totalBalance">Total Saldo</small><strong id="totalBalance">Rp0</strong><div id="mainCurrencyHint" class="hint">🇮🇩 IDR</div></div>
+<div class="box income-box"><small data-i18n="income">Pemasukan</small><strong id="totalIncome" class="income">Rp0</strong><div class="hint">Sesuai mata uang utama</div></div>
+<div class="box expense-box"><small data-i18n="expense">Pengeluaran</small><strong id="totalExpense" class="expense">Rp0</strong><div class="hint">Sesuai mata uang utama</div></div>
+</div>
+
+<div class="card">
+<div class="section-head"><h2 data-i18n="accountsTitle">🏦 Rekening & Dompet</h2><button class="mini-link" onclick="showAccountForm()">＋ Tambah</button></div>
+<div id="accounts" class="accounts"></div>
+<button class="primary add-account" onclick="showAccountForm()" data-i18n="addAccount">＋ Tambah Rekening / Cash / E-Wallet</button>
+<div id="accountForm" style="display:none;margin-top:10px">
+<label data-i18n="name">Nama</label><input id="accName" placeholder="Contoh: BCA, Cash, DANA">
+<label data-i18n="type">Jenis</label>
+<select id="accType"><option value="Bank" data-i18n="bank">Bank</option><option value="Cash" data-i18n="cash">Cash</option><option value="E-Wallet" data-i18n="ewallet">E-Wallet</option><option value="Lainnya" data-i18n="other">Lainnya</option></select>
+<label data-i18n="currency">Mata Uang</label>
+<select id="accCurrency"><option value="IDR">🇮🇩 IDR — Rupiah</option><option value="MYR">🇲🇾 MYR — Ringgit Malaysia</option></select>
+<label data-i18n="openingBalance">Saldo Awal</label><input id="accOpening" type="number" placeholder="0">
+<div class="actions" style="margin-top:9px"><button class="primary" onclick="addAccount()" data-i18n="save">Simpan</button><button class="secondary" onclick="hideAccountForm()" data-i18n="cancel">Batal</button></div>
+</div>
+</div>
+
+<div class="card tx-card">
+<div class="section-head"><h2 data-i18n="recordTitle">📝 Catat Transaksi</h2><span class="main-badge" id="txCurrencyBadge">IDR</span></div>
+<div class="type">
+<button id="incomeBtn" class="active" onclick="setTxType('income')" data-i18n="incomeBtn">＋ Pemasukan</button>
+<button id="expenseBtn" onclick="setTxType('expense')" data-i18n="expenseBtn">－ Pengeluaran</button>
+<button id="transferBtn" onclick="setTxType('transfer')" data-i18n="transferBtn">⇄ Transfer</button>
+</div>
+
+<div class="row">
+<div><label data-i18n="date">Tanggal</label><input id="date" type="date"></div>
+<div><label data-i18n="amount">Nominal</label><input id="amount" type="number" min="1" placeholder="50000"></div>
+</div>
+
+<div id="normalFields">
+<label data-i18n="account">Rekening</label><select id="account"></select>
+<label data-i18n="category">Kategori</label>
+<select id="category">
+<option>Makanan</option><option>Transportasi</option><option>Belanja</option><option>Tagihan</option>
+<option>Kesehatan</option><option>Hiburan</option><option>Rumah</option><option>Gaji</option>
+<option>Bonus</option><option>Penjualan</option><option>Lainnya</option>
+</select>
+</div>
+
+<div id="transferFields" style="display:none">
+<label data-i18n="from">Dari</label><select id="fromAccount"></select>
+<label data-i18n="to">Ke</label><select id="toAccount"></select>
+</div>
+
+<label data-i18n="note">Catatan</label><input id="note" placeholder="Contoh: makan siang">
+<button class="primary" onclick="addTransaction()" data-i18n="save">Simpan</button>
+</div>
+
+<div class="card">
+<div class="section-head"><h2 data-i18n="historyTitle">📋 Riwayat Transaksi</h2><span class="main-badge" style="background:#e9efff;color:#4770b6" id="historyCurrencyBadge">IDR</span></div>
+<div class="filter"><select id="monthFilter" onchange="render()"><option value="all" data-i18n="allMonths">Semua bulan</option></select></div>
+<div id="list"></div>
+</div>
+
+<div class="card">
+<div class="actions">
+<button class="secondary" onclick="exportCSV()" data-i18n="exportCsv">⬇ Export CSV</button>
+<button class="secondary" onclick="backup()" data-i18n="backup">💾 Backup JSON</button>
+</div>
+<div style="margin-top:8px"><button class="secondary" onclick="restore()" data-i18n="restore">↥ Restore JSON</button></div>
+</div>
+
+<div class="card note install" id="installCard"><b>📲 <span data-i18n="installTitle">Pasang sebagai aplikasi</span></b><br><span data-i18n="installText">Buka melalui alamat HTTPS untuk memasangnya ke Home Screen.</span></div>
+
+<div class="card note"><span data-i18n="storageNote">Data tersimpan di browser/perangkat ini. Tidak memakai server. Backup JSON disarankan sebelum menghapus data browser atau mengganti perangkat.</span></div>
+</div>
+<div class="footer-note">✓ IDR & MYR terpisah · ✓ tanpa konversi · ✓ PWA · ✓ Bahasa Indonesia & 繁體中文</div>
+
+<script>
+let accounts=JSON.parse(localStorage.getItem('financeAccounts_v5_idr_myr')||'[]');
+let transactions=JSON.parse(localStorage.getItem('financeTransactions_v5_idr_myr')||'[]');
+accounts=accounts.map(a=>({...a,currency:a.currency||'IDR'}));
+let txType='income';
+
+const currencyFormat=(n,currency)=>{
+ const locale=currency==='MYR'?'ms-MY':'id-ID';
+ return new Intl.NumberFormat(locale,{style:'currency',currency,maximumFractionDigits:0}).format(n);
+};
+const symbol=currency=>currency==='MYR'?'RM':'Rp';
+const currencies=['IDR','MYR'];
+const currencyLabel=currency=>currency==='MYR'?'🇲🇾 MYR':'🇮🇩 IDR';
+const fmt=(n,currency)=>currencyFormat(n,currency);
+const today=()=>new Date().toISOString().slice(0,10);
+document.getElementById('date').value=today();
+
+function save(){localStorage.setItem('financeAccounts_v5_idr_myr',JSON.stringify(accounts));localStorage.setItem('financeTransactions_v5_idr_myr',JSON.stringify(transactions));}
+function showAccountForm(){document.getElementById('accountForm').style.display='block'; document.getElementById('accCurrency').value=mainCurrency||'IDR'}
+function hideAccountForm(){document.getElementById('accountForm').style.display='none'}
+
+function addAccount(){
+ let name=document.getElementById('accName').value.trim(), type=document.getElementById('accType').value, currency=document.getElementById('accCurrency').value, opening=Number(document.getElementById('accOpening').value||0);
+ if(!name){alert(currentLang==='zh'?'請輸入帳戶名稱。':'Masukkan nama rekening.');return}
+ if(accounts.some(a=>a.name.toLowerCase()===name.toLowerCase())){alert(currentLang==='zh'?'帳戶名稱已存在。':'Nama rekening sudah ada.');return}
+ accounts.push({id:Date.now(),name,type,currency,opening});
+ save();document.getElementById('accName').value='';document.getElementById('accOpening').value='';hideAccountForm();render(); if(!localStorage.getItem('financeMainCurrency_v5_idr_myr')) chooseMainCurrency();
+}
+
+function accountBalance(id){
+ const a=accounts.find(x=>x.id==id); if(!a)return 0;
+ let b=Number(a.opening)||0;
+ transactions.forEach(t=>{
+  if(t.type==='income'&&t.accountId==id)b+=t.amount;
+  if(t.type==='expense'&&t.accountId==id)b-=t.amount;
+  if(t.type==='transfer'){if(t.fromId==id)b-=t.amount;if(t.toId==id)b+=t.amount}
+ }); return b;
+}
+
+function deleteAccount(id){
+ if(transactions.some(t=>t.accountId==id||t.fromId==id||t.toId==id)){alert(currentLang==='zh'?'此帳戶仍有交易紀錄，請先刪除相關交易。':'Rekening ini masih memiliki transaksi. Hapus transaksinya terlebih dahulu.');return}
+ if(confirm(currentLang==='zh'?'確定要刪除此帳戶嗎？':'Hapus rekening ini?')){accounts=accounts.filter(a=>a.id!=id);save();render()}
+}
+
+function renderAccounts(){
+ const el=document.getElementById('accounts');
+ if(!accounts.length){el.innerHTML='<div class="empty"><span data-i18n="noAccounts">Belum ada rekening. Tambahkan Bank, Cash, atau E-Wallet.</span></div>'}
+ else el.innerHTML=accounts.map(a=>`<div class="account">
+ <div><div class="account-name">${escapeHtml(a.name)}</div><div class="account-type">${escapeHtml(typeLabel(a.type))}</div><div class="currency-badge">${currencyLabel(a.currency||"IDR")}</div></div>
+ <div style="text-align:right"><div class="account-balance">${fmt(accountBalance(a.id),a.currency||"IDR")}</div><div class="account-actions"><button onclick="deleteAccount(${a.id})">Hapus</button></div></div>
+ </div>`).join('');
+}
+
+function options(selected=''){
+ return accounts.map(a=>`<option value="${a.id}" ${String(a.id)===String(selected)?'selected':''}>${escapeHtml(a.name)} — ${fmt(accountBalance(a.id),a.currency||"IDR")}</option>`).join('');
+}
+function renderSelects(){
+ const main=mainCurrency||'IDR';
+ const normal=accounts.filter(a=>(a.currency||'IDR')===main);
+ const same=normal;
+ const opt=list=>list.map(a=>`<option value="${a.id}">${escapeHtml(a.name)} — ${fmt(accountBalance(a.id),a.currency||'IDR')}</option>`).join('');
+ document.getElementById('account').innerHTML=opt(normal)||'<option value="">Tidak ada rekening '+main+'</option>';
+ document.getElementById('fromAccount').innerHTML=opt(same)||'<option value="">Tidak ada rekening '+main+'</option>';
+ document.getElementById('toAccount').innerHTML=opt(same)||'<option value="">Tidak ada rekening '+main+'</option>';
+ document.getElementById('txCurrencyBadge').textContent=main;
+ document.getElementById('historyCurrencyBadge').textContent=main;
+}
+function setTxType(t){
+ txType=t;
+ ['income','expense','transfer'].forEach(x=>document.getElementById(x+'Btn').classList.toggle('active',x===t));
+ document.getElementById('normalFields').style.display=t==='transfer'?'none':'block';
+ document.getElementById('transferFields').style.display=t==='transfer'?'block':'none';
+ updateCategoryOptions();
+ if(t==='income')document.getElementById('category').value='Gaji';
+ if(t==='expense')document.getElementById('category').value='Makanan';
+}
+
+function addTransaction(){
+ const amount=Number(document.getElementById('amount').value),date=document.getElementById('date').value,note=document.getElementById('note').value.trim();
+ if(!amount||amount<=0){alert(currentLang==='zh'?'請輸入金額。':'Masukkan nominal.');return}
+ if(!accounts.length){alert(currentLang==='zh'?'請先新增銀行帳戶、現金或電子錢包。':'Tambahkan rekening/cash/e-wallet terlebih dahulu.');return}
+ if(txType==='transfer'){
+  const from=Number(document.getElementById('fromAccount').value),to=Number(document.getElementById('toAccount').value);
+  if(from===to){alert(currentLang==='zh'?'轉出與轉入帳戶必須不同。':'Rekening asal dan tujuan harus berbeda.');return}
+  const fromAcc=accounts.find(a=>a.id===from), toAcc=accounts.find(a=>a.id===to);
+  if((fromAcc.currency||'IDR')!==(toAcc.currency||'IDR')){
+   alert(currentLang==='zh'?'不同貨幣的帳戶不能直接轉帳，請先分開記錄。':'Rekening dengan mata uang berbeda tidak dapat ditransfer langsung karena aplikasi ini tidak melakukan konversi.');
+   return;
+  }
+  transactions.push({id:Date.now(),type:'transfer',amount,date,fromId:from,toId:to,note,currency:fromAcc.currency||'IDR'});
+ }else{
+  const accountId=Number(document.getElementById('account').value),category=document.getElementById('category').value;
+  transactions.push({id:Date.now(),type:txType,amount,date,accountId,category,note});
+ }
+ save();document.getElementById('amount').value='';document.getElementById('note').value='';render();
+}
+
+function deleteTransaction(id){if(confirm(currentLang==='zh'?'確定要刪除這筆交易嗎？':'Hapus transaksi ini?')){transactions=transactions.filter(t=>t.id!==id);save();render()}}
+
+function setupMonth(){
+ const f=document.getElementById('monthFilter'),cur=f.value||'all';
+ const months=[...new Set(transactions.map(t=>t.date.slice(0,7)))].sort().reverse();
+ f.innerHTML='<option value="all" data-i18n="allMonths">Semua bulan</option>'+months.map(m=>`<option value="${m}">${m.slice(5)}/${m.slice(0,4)}</option>`).join('');
+ f.value=months.includes(cur)?cur:'all';
+}
+
+let mainCurrency=localStorage.getItem('financeMainCurrency_v5_idr_myr')||'IDR';
+function saveMainCurrency(){
+ mainCurrency=document.getElementById('choiceIDR').classList.contains('active')?'IDR':'MYR';
+ localStorage.setItem('financeMainCurrency_v5_idr_myr',mainCurrency);
+ document.getElementById('mainCurrencySetup').style.display='none';
+ render();
+}
+function pickMainCurrency(c){
+ document.getElementById('choiceIDR').classList.toggle('active',c==='IDR');
+ document.getElementById('choiceMYR').classList.toggle('active',c==='MYR');
+ document.getElementById('choiceIDR').classList.toggle('active',c==='IDR');
+ document.getElementById('choiceMYR').classList.toggle('active',c==='MYR');
+}
+function chooseMainCurrency(){
+ pickMainCurrency(mainCurrency);
+ document.getElementById('mainCurrencySetup').style.display='flex';
+}
+function renderMainCurrency(sums){
+ const s=sums[mainCurrency]||{balance:0};
+ document.getElementById('totalBalance').textContent=fmt(s.balance,mainCurrency);
+ document.getElementById('mainCurrencyHint').textContent=currencyLabel(mainCurrency); document.getElementById('summaryCurrency').textContent=mainCurrency; document.getElementById('txCurrencyBadge').textContent=mainCurrency; document.getElementById('historyCurrencyBadge').textContent=mainCurrency;
+}
+function render(){
+ renderAccounts();renderSelects();setupMonth();
+ let filter=document.getElementById('monthFilter').value;
+ let data=transactions.filter(t=>{const c=t.type==='transfer'?(t.currency||accountCurrency(t.fromId)):accountCurrency(t.accountId);return c===mainCurrency&&(filter==='all'||t.date.startsWith(filter));}).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+ const sums={IDR:{income:0,expense:0,balance:0},MYR:{income:0,expense:0,balance:0}};
+ data.forEach(t=>{
+  const c=t.type==='transfer'?(t.currency||accountCurrency(t.fromId)):accountCurrency(t.accountId);
+  if(t.type==='income')sums[c].income+=Number(t.amount)||0;
+  if(t.type==='expense')sums[c].expense+=Number(t.amount)||0;
+ });
+ accounts.forEach(a=>{const c=a.currency||'IDR';sums[c].balance+=accountBalance(a.id);});
+ document.getElementById('totalIncome').textContent=fmt(sums[mainCurrency].income,mainCurrency);
+ document.getElementById('totalExpense').textContent=fmt(sums[mainCurrency].expense,mainCurrency);
+ renderMainCurrency(sums);
+
+ const list=document.getElementById('list');
+ if(!data.length){list.innerHTML='<div class="empty"><span data-i18n="noTransactions">Belum ada transaksi.</span></div>';return}
+ list.innerHTML=data.map(t=>{
+  let title,amount;
+  if(t.type==='transfer'){
+   title='⇄ '+name(t.fromId)+' → '+name(t.toId);amount=''+fmt(t.amount,t.currency||accountCurrency(t.fromId));
+  }else{
+   const catLabel=categoryLabel(t.category);
+   title=(t.type==='income'?'＋ ':'－ ')+catLabel+' · '+name(t.accountId);
+   amount=(t.type==='income'?'+ ':'− ')+fmt(t.amount,accountCurrency(t.accountId));
+  }
+  return `<div class="item"><div><div class="title">${escapeHtml(title)}</div><div class="meta">${formatDate(t.date)}${t.note?' · '+escapeHtml(t.note):''}</div></div><div style="text-align:right"><div class="amount ${t.type==='income'?'income':t.type==='expense'?'expense':'blue'}">${amount}</div><button class="delete" onclick="deleteTransaction(${t.id})">Hapus</button></div></div>`;
+ }).join('');
+}
+function typeLabel(v){
+ if(currentLang==='zh') return ({Bank:'銀行',Cash:'現金','E-Wallet':'電子錢包',Lainnya:'其他'})[v]||v;
+ return v;
+}
+function categoryLabel(v){
+ const map={Makanan:'飲食',Transportasi:'交通',Belanja:'購物',Tagihan:'帳單',Kesehatan:'醫療',Hiburan:'娛樂',Rumah:'房屋',Gaji:'薪資',Bonus:'獎金',Penjualan:'銷售',Lainnya:'其他'};
+ const reverse={'飲食':'Makanan','交通':'Transportasi','購物':'Belanja','帳單':'Tagihan','醫療':'Kesehatan','娛樂':'Hiburan','房屋':'Rumah','薪資':'Gaji','獎金':'Bonus','銷售':'Penjualan','其他':'Lainnya'};
+ const normalized=reverse[v]||v;
+ return currentLang==='zh'?(map[normalized]||v):normalized;
+}
+
+function accountCurrency(id){let a=accounts.find(x=>x.id==id);return (a&&a.currency)||'IDR'}
+function name(id){let a=accounts.find(x=>x.id==id);return a?a.name:'?'}
+function formatDate(s){return new Date(s+'T00:00:00').toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'})}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+
+function exportCSV(){
+ const rows=[['Tanggal','Jenis','Rekening/Dari','Ke','Kategori','Mata Uang','Nominal','Catatan'],...transactions.map(t=>[
+ t.date,t.type==='income'?'Pemasukan':t.type==='expense'?'Pengeluaran':'Transfer',
+ t.type==='transfer'?name(t.fromId):name(t.accountId),t.type==='transfer'?name(t.toId):'',
+ t.category||'',t.type==='transfer'?(t.currency||accountCurrency(t.fromId)):accountCurrency(t.accountId),t.amount,t.note||''])];
+ const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\\n');
+ const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='keuangan.csv';a.click();
+}
+function backup(){
+ const blob=new Blob([JSON.stringify({accounts,transactions},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup-keuangan.json';a.click();
+}
+function restore(){
+ const input=document.createElement('input');input.type='file';input.accept='.json,application/json';
+ input.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.accounts)||!Array.isArray(d.transactions))throw 0;accounts=d.accounts;transactions=d.transactions;save();render();alert(currentLang==='zh'?'備份已成功還原。':'Backup berhasil dipulihkan.')}catch{alert(currentLang==='zh'?'備份檔案無效。':'File backup tidak valid.')}};r.readAsText(f)};input.click();
+}
+
+const LANG = {
+id:{
+appTitle:'Keuangan Pribadi IDR / MYR',totalBalance:'Total Saldo',income:'Pemasukan',expense:'Pengeluaran',currency:'Mata Uang',mainCurrency:'Mata Uang Utama',
+accountsTitle:'🏦 Rekening & Dompet',addAccount:'＋ Tambah Rekening / Cash / E-Wallet',name:'Nama',type:'Jenis',
+bank:'Bank',cash:'Cash',ewallet:'E-Wallet',other:'Lainnya',openingBalance:'Saldo Awal',save:'Simpan',cancel:'Batal',
+recordTitle:'📝 Catat Transaksi',incomeBtn:'＋ Pemasukan',expenseBtn:'－ Pengeluaran',transferBtn:'⇄ Transfer',
+date:'Tanggal',amount:'Nominal',account:'Rekening',category:'Kategori',from:'Dari',to:'Ke',note:'Catatan',
+historyTitle:'📋 Riwayat Transaksi',allMonths:'Semua bulan',exportCsv:'⬇ Export CSV',backup:'💾 Backup JSON',restore:'↥ Restore JSON',
+installTitle:'Pasang sebagai aplikasi',installText:'Buka melalui alamat HTTPS untuk memasangnya ke Home Screen.',storageNote:'Data tersimpan di browser/perangkat ini. Tidak memakai server. IDR dan MYR dicatat terpisah tanpa konversi. Backup JSON disarankan sebelum menghapus data browser atau mengganti perangkat.',
+noAccounts:'Belum ada rekening. Tambahkan Bank, Cash, atau E-Wallet.',noTransactions:'Belum ada transaksi.'
+},
+zh:{
+appTitle:'IDR／MYR 個人財務',totalBalance:'總餘額',income:'收入',expense:'支出',currency:'貨幣',mainCurrency:'主要貨幣',
+accountsTitle:'🏦 銀行帳戶與錢包',addAccount:'＋ 新增銀行帳戶／現金／電子錢包',name:'名稱',type:'類型',
+bank:'銀行',cash:'現金',ewallet:'電子錢包',other:'其他',openingBalance:'初始餘額',save:'儲存',cancel:'取消',
+recordTitle:'📝 新增交易',incomeBtn:'＋ 收入',expenseBtn:'－ 支出',transferBtn:'⇄ 轉帳',
+date:'日期',amount:'金額',account:'帳戶',category:'分類',from:'轉出帳戶',to:'轉入帳戶',note:'備註',
+historyTitle:'📋 交易紀錄',allMonths:'全部月份',exportCsv:'⬇ 匯出 CSV',backup:'💾 備份 JSON',restore:'↥ 還原 JSON',
+installTitle:'安裝成應用程式',installText:'請透過 HTTPS 網址開啟，即可將此工具加入主畫面。',storageNote:'資料儲存在此裝置的瀏覽器中，不需要伺服器。IDR 與 MYR 分開記錄，不進行換算。更換裝置或清除瀏覽器資料前，建議先備份 JSON。',
+noAccounts:'尚未新增帳戶。請新增銀行、現金或電子錢包。',noTransactions:'目前沒有交易紀錄。'
+}};
+let currentLang=localStorage.getItem('financeLanguage_v5_idr_myr')||'id';
+function setLanguage(lang){
+ currentLang=lang; localStorage.setItem('financeLanguage_v5_idr_myr',lang);
+ document.getElementById('language').value=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{
+   const key=el.getAttribute('data-i18n'); if(LANG[lang][key]) el.textContent=LANG[lang][key];
+ });
+ document.title=LANG[lang].appTitle;
+ updateCategoryOptions();
+ render();
+}
+function tr(key){return LANG[currentLang][key]||key;}
+function updateCategoryOptions(){
+ const cat=document.getElementById('category');
+ if(!cat)return;
+ const vals=[
+  ['Makanan',currentLang==='zh'?'飲食':'Makanan'],['Transportasi',currentLang==='zh'?'交通':'Transportasi'],
+  ['Belanja',currentLang==='zh'?'購物':'Belanja'],['Tagihan',currentLang==='zh'?'帳單':'Tagihan'],
+  ['Kesehatan',currentLang==='zh'?'醫療':'Kesehatan'],['Hiburan',currentLang==='zh'?'娛樂':'Hiburan'],
+  ['Rumah',currentLang==='zh'?'房屋':'Rumah'],['Gaji',currentLang==='zh'?'薪資':'Gaji'],
+  ['Bonus',currentLang==='zh'?'獎金':'Bonus'],['Penjualan',currentLang==='zh'?'銷售':'Penjualan'],
+  ['Lainnya',currentLang==='zh'?'其他':'Lainnya']
+ ];
+ const reverse={'飲食':'Makanan','交通':'Transportasi','購物':'Belanja','帳單':'Tagihan','醫療':'Kesehatan','娛樂':'Hiburan','房屋':'Rumah','薪資':'Gaji','獎金':'Bonus','銷售':'Penjualan','其他':'Lainnya'};
+ const old=reverse[cat.value]||cat.value;
+ cat.innerHTML=vals.map(v=>`<option value="${v[0]}">${v[1]}</option>`).join('');
+ if(vals.some(v=>v[0]===old)) cat.value=old;
+}
+
+
+setLanguage(currentLang);
+render();
+
+if (!localStorage.getItem('financeMainCurrency_v5_idr_myr')) {
+  setTimeout(chooseMainCurrency, 150);
+}
+
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
